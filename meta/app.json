@@ -1,0 +1,31 @@
+{
+  "dataSources": [
+    "SampleDB"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "ignore": [
+    "_Host.cshtml"
+  ],
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "ExportOperations",
+  "navigation": [
+    "Products"
+  ],
+  "pages": [
+    "Products",
+    "Add Product",
+    "Edit Product"
+  ],
+  "port": 8000,
+  "serverLang": "cs",
+  "serverPort": 5000,
+  "serverProject": true,
+  "serverVersion": "3",
+  "startPage": "Products",
+  "theme": "default"
+}

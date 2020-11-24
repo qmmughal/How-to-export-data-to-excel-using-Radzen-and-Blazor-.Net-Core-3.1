@@ -1,0 +1,51 @@
+﻿@page "/"
+@page "/products"
+@layout MainLayout
+@inherits ExportOperations.Pages.ProductsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using ExportOperations.Models.SampleDb
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Products">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenSplitButton Icon="get_app" style="margin-bottom: 10px; margin-left: 10px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await Load();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getProductsResult" FilterMode="FilterMode.Advanced" TItem="ExportOperations.Models.SampleDb.Product" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="ExportOperations.Models.SampleDb.Product" Property="Id" Title="Id">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ExportOperations.Models.SampleDb.Product" Property="ProductName" Title="Product Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ExportOperations.Models.SampleDb.Product" FormatString="{0:C}" Property="ProductPrice" Title="Product Price">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ExportOperations.Models.SampleDb.Product" Filterable="false" Property="ProductPicture" Sortable="false" Title="Product Picture">
+              <Template Context="data">
+              <img src="@data.ProductPicture" width="50%" height="50%" />
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ExportOperations.Models.SampleDb.Product" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="exportOperationsModelsSampleDbProduct">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, exportOperationsModelsSampleDbProduct))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
